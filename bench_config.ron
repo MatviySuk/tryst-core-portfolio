@@ -1,0 +1,11 @@
+BenchConfig(
+    crypto: Some(CryptoConfig(
+        epochs_to_simulate: [1, 30, 100, 1000, 10000],
+    )),
+    discovery: Some(DiscoveryConfig(
+        iterations: 1,
+    )),
+    latency: Some(LatencyConfig(
+        iterations: 1,
+    )),
+)

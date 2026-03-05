@@ -1,0 +1,32 @@
+FROM rust:1.90.0-bullseye AS chef
+WORKDIR /usr/src/gossip
+
+# Install runtime dependencies for the benchmark script and the sqlite3 library.
+RUN cargo install cargo-chef \
+    && apt-get update \
+    && apt-get install -y iproute2 iputils-ping libsqlite3-dev
+
+FROM chef AS planner
+COPY . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+FROM chef AS builder
+COPY --from=planner /usr/src/gossip/recipe.json recipe.json
+RUN cargo chef cook --release --recipe-path recipe.json
+
+# Copy the entire project context from the host.
+# This command assumes `cargo sqlx prepare` has been successfully run on the
+# host machine, so that the `.sqlx` directory is present in the context.
+ENV SQLX_OFFLINE=true
+COPY . .
+# Build the benchmark binaries in offline mode.
+# This relies on the `.sqlx` directory that was copied from the host.
+RUN cargo build --release --bin bench_orchestrator --bin bench_tryst_discovery_worker --bin bench_p2p_conn_worker
+
+# Copy the entrypoint script and make it executable.
+COPY scripts/run_bench.sh /run_bench.sh
+RUN chmod +x /run_bench.sh
+
+# Set the entrypoint for the container.
+ENTRYPOINT ["/run_bench.sh"]
+

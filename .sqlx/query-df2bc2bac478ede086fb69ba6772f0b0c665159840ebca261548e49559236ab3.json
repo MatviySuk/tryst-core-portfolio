@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT document FROM chats WHERE chat_id = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "document",
+        "ordinal": 0,
+        "type_info": "Blob"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "df2bc2bac478ede086fb69ba6772f0b0c665159840ebca261548e49559236ab3"
+}

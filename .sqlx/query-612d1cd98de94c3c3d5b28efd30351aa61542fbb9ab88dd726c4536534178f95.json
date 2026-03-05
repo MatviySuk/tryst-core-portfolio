@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            INSERT INTO tryst\n            (id, account_id, current_secret, previous_secret, last_updated_epoch, is_verified)\n            VALUES (?, ?, ?, ?, ?, ?)\n            ON CONFLICT(id) DO UPDATE SET\n                account_id = excluded.account_id,\n                current_secret = excluded.current_secret,\n                previous_secret = excluded.previous_secret,\n                last_updated_epoch = excluded.last_updated_epoch,\n                is_verified = excluded.is_verified\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 6
+    },
+    "nullable": []
+  },
+  "hash": "612d1cd98de94c3c3d5b28efd30351aa61542fbb9ab88dd726c4536534178f95"
+}

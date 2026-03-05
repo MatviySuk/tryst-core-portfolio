@@ -1,0 +1,9 @@
+# Ignore Rust build artifacts
+target/
+
+# Ignore local benchmark databases
+bench_dbs/
+
+# Ignore local benchmark results and logs
+*.csv
+*.log

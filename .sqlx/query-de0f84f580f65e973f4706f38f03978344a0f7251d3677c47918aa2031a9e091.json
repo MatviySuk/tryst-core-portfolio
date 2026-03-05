@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT chat_id AS \"chat_id!: String\" FROM chats",
+  "describe": {
+    "columns": [
+      {
+        "name": "chat_id!: String",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "de0f84f580f65e973f4706f38f03978344a0f7251d3677c47918aa2031a9e091"
+}
